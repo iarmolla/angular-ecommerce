@@ -5,7 +5,7 @@
       <p>
         <mat-form-field appearance="outline" class="form__errors">
           <mat-label>Numero de la tarjeta</mat-label>
-          <input matInput formControlName="number" type="text" maxlength="16" (ngModelChange)="inputChange()"/>
+          <input matInput formControlName="number" type="text" maxlength="16" max="12" (ngModelChange)="inputChange()"/>
           <div *ngIf="cardHolder['number']?.invalid && (cardForm.get('number')?.dirty || cardForm.get('number')?.touched)">
             <p class="form__error">El numero debe ser un formato valido</p>
           </div>
@@ -14,7 +14,7 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input matInput formControlName="name" type="text" maxlength="19" />
+          <input matInput formControlName="name" type="text" maxlength="19" (ngModelChange)="inputChange()" />
           <div *ngIf="cardForm.get('name')?.invalid && (cardForm.get('name')?.dirty || cardForm.get('name')?.touched)">
             <p class="form__error">El nombre debe ser un formato valido</p>
           </div>
@@ -22,9 +22,9 @@
       </p>
       <div class="form__group">
         <p>
-          <mat-form-field appearance="outline" (click)="focused()">
+          <mat-form-field appearance="outline" (click)="focused()" >
             <mat-label>Codigo de seguridad</mat-label>
-            <input matInput formControlName="cvc" type="text" maxlength="4" (blur)="focused()"/>
+            <input matInput formControlName="cvc" type="text" maxlength="4" (blur)="changeFocus()" (focus)="focused()"/>
             <div *ngIf="cardHolder['cvc']?.invalid && (cardForm.get('cvc')?.dirty || cardForm.get('cvc')?.touched)">
               <p class="form__error">
                 El codigo debe ser un formato valido y debe ser maximo 4
@@ -56,11 +56,11 @@
     </section>
     <section>
       <!-- TARJETA DEFAULT -->
-      <div [ngClass]="{'default__active': number >=0 && number <=2, 'defaut__disable': number == 4 || number == 5}" >
+      <div [ngClass]="{'default__active': type != 'VISA' && type!='MASTERCARD', 'defaut__disable': type === 'MASTERCARD' || type=== 'VISA'}" >
         <div class="credit__card__mastercard" [ngClass]="{'credit__card__animate': focus, '': !focus}">
           <div class="credit__card" [ngClass]="{'credit__card--disable': focus, 'credit__card--active': !focus}">
             <div class="card__chip"></div>
-            <span class="card__hide"> {{cardForm.get("number")?.value || "***** ***** **** ****"}} </span>
+            <span class="card__hide"> {{cardForm.get("number")?.value || "**** **** **** ****"}} </span>
             <span class="card__name">{{cardForm.get("name")?.value || "Nombre"}}</span>
             <span class="card__date">{{cardForm.get("date")?.value || "MM/YY"}}</span>
           </div>   
@@ -73,7 +73,7 @@
         </div>
       </div>
       <!-- TARJETA MASTERCARD -->
-      <div [ngClass]="{'mastercard__active': number ==5, 'mastercard__disable': number >5 || number < 5}" >
+      <div [ngClass]="{'mastercard__active': type === 'MASTERCARD', 'mastercard__disable': type != 'MASTERCARD'}" >
         <div class="credit__card__mastercard credit__card__mastercard__front" [ngClass]="{'credit__card__animate': focus, '': !focus}">
           <!-- PARTE DELANTERA -->
           <div class="card__front" [ngClass]="{'credit__card--disable': focus, 'credit__card--active': !focus}">
@@ -81,8 +81,7 @@
             <div class="credit__card__mastercard__logo"></div>
             <span class="card__hide">{{cardForm.get("number")?.value || "***** ***** **** ****"}}</span>
             <span class="card__name">{{cardForm.get("name")?.value || "Nombre"}}</span>
-            <span class="card__date">{{cardForm.get("date")?.value || "MM/YY"}}</span>
-  
+            <span class="card__date">{{cardForm.get("date")?.value || "MM/YY"}}</span>  
           </div>
           <!-- PARTE TRASERA DE LA TARJETA MASTERCARD -->
           <div class="credit__card__mastercard card__back" [ngClass]="{'card__back--active': focus, 'card__back--disable': !focus}">
@@ -95,7 +94,7 @@
         </div>
       </div>
       <!-- TARJETA VISA -->
-      <div [ngClass]="{'visa__active': number == 4, 'visa__disable': number >4 || number < 4}">
+      <div [ngClass]="{'visa__active': type === 'VISA','visa__disable': type!= 'VISA'}">
         <div class="credit__card__mastercard credit__card__mastercard__front" [ngClass]="{'credit__card__animate': focus, '': !focus}">
           <!-- Parte frontal -->
           <div class="credit__card__visa" [ngClass]="{'credit__card--disable': focus, 'credit__card--active': !focus}">
