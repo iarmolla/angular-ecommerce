@@ -1,122 +1,115 @@
 <div class="container">
-    <form class="form" [formGroup]="cardForm" (ngSubmit)="submitRegistration()">
-      <section class="form__section">
-        <h1 class="form__title">Ingresar medio de pago</h1>
-        <p>
-          <mat-form-field appearance="outline" class="form__errors">
-            <mat-label>Numero de la tarjeta</mat-label>
-            <input matInput formControlName="number" type="text" maxlength="16" onchange="onChanges(event)" />
-            <div
-              *ngIf="
-                cardHolder['number']?.invalid &&
-                (cardForm.get('number')?.dirty || cardForm.get('number')?.touched)
-              "
-            >
-              <p class="form__error">El numero debe ser un formato valido</p>
-            </div>
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="name" type="text" maxlength="19" />
-            <div
-              *ngIf="
-                cardForm.get('name')?.invalid &&
-                (cardForm.get('name')?.dirty || cardForm.get('name')?.touched)
-              "
-            >
-              <p class="form__error">El nombre debe ser un formato valido</p>
-            </div>
-          </mat-form-field>
-        </p>
-  
-        <div class="form__group">
-          <p>
-            <mat-form-field appearance="outline">
-              <mat-label>Codigo de seguridad</mat-label>
-              <input matInput formControlName="cvc" type="text" maxlength="4"/>
-              <div *ngIf="cardHolder['cvc']?.invalid && (cardForm.get('cvc')?.dirty || cardForm.get('cvc')?.touched)">
-                  <p class="form__error">
-                    El codigo debe ser un formato valido y debe ser maximo 4
-                  </p>
-              </div>
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="outline">
-              <mat-label>DNI del titular</mat-label>
-              <input matInput formControlName="dni" maxlength="8"/>
-              <div *ngIf="cardHolder['dni']?.invalid && (cardForm.get('dni')?.dirty || cardForm.get('dni')?.touched)">
-                  <p class="form__error form__error--top">
-                    El dni debe contener solo numeros
-                  </p>
-              </div>
-            </mat-form-field>
-          </p>
-        </div>
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Fecha de vencimiento</mat-label>
-            <input matInput type="text" placeholder="MM/AA" formControlName="date" maxlength="5"/>
-            <div *ngIf="cardHolder['date']?.invalid && (cardForm.get('date')?.dirty || cardForm.get('date')?.touched)">
-              <p class="form__error form__error--top">
-                La fecha debe ser MM/AA
-              </p>
+  <form class="form" [formGroup]="cardForm" (ngSubmit)="submitRegistration()">
+    <section class="form__section">
+      <h1 class="form__title">Ingresar medio de pago</h1>
+      <p>
+        <mat-form-field appearance="outline" class="form__errors">
+          <mat-label>Numero de la tarjeta</mat-label>
+          <input matInput formControlName="number" type="text" maxlength="16"/>
+          <div *ngIf="cardHolder['number']?.invalid && (cardForm.get('number')?.dirty || cardForm.get('number')?.touched)">
+            <p class="form__error">El numero debe ser un formato valido</p>
           </div>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" type="text" maxlength="19" />
+          <div *ngIf="cardForm.get('name')?.invalid && (cardForm.get('name')?.dirty || cardForm.get('name')?.touched)">
+            <p class="form__error">El nombre debe ser un formato valido</p>
+          </div>
+        </mat-form-field>
+      </p>
+      <div class="form__group">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Codigo de seguridad</mat-label>
+            <input matInput formControlName="cvc" type="text" maxlength="4" />
+            <div *ngIf="cardHolder['cvc']?.invalid && (cardForm.get('cvc')?.dirty || cardForm.get('cvc')?.touched)">
+              <p class="form__error">
+                El codigo debe ser un formato valido y debe ser maximo 4
+              </p>
+            </div>
           </mat-form-field>
         </p>
-        
-      </section>
-      <section>
-        <!-- <ng-credit-card       
-          number="{{ cardForm.get('number')?.value }}"  
-          name="{{ cardForm.get('name')?.value }}"
-          expiry="{{ cardForm.get('date')?.value }}"
-          cvc="{{ cardForm.get('cvc')?.value }}"
-        ></ng-credit-card> -->
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>DNI del titular</mat-label>
+            <input matInput formControlName="dni" maxlength="8" />
+            <div *ngIf="cardHolder['dni']?.invalid && (cardForm.get('dni')?.dirty || cardForm.get('dni')?.touched)">
+              <p class="form__error form__error--top">
+                El dni debe contener solo numeros
+              </p>
+            </div>
+          </mat-form-field>
+        </p>
+      </div>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de vencimiento</mat-label>
+          <input matInput type="text" placeholder="MM/AA" formControlName="date" maxlength="5"/>
+          <div *ngIf=" cardHolder['date']?.invalid && (cardForm.get('date')?.dirty || cardForm.get('date')?.touched)">
+            <p class="form__error form__error--top">La fecha debe ser MM/AA</p>
+          </div>
+        </mat-form-field>
+      </p>
+    </section>
+    <section>
+      <!-- TARJETA DEFAULT -->
+      <div class="credit__card__mastercard">
         <div class="credit__card">
           <div class="card__chip"></div>
-          <span class="card__hide">
-              •••• •••• •••• ••••
-          </span>
-          <span class="card__name">Name</span>
+          <span class="card__hide"> {{cardForm.get("number")?.value || "***** ***** **** ****"}} </span>
+          <span class="card__name">{{cardForm.get("name")?.value || "Nombre"}}</span>
+          <span class="card__date">{{cardForm.get("date")?.value || "MM/YY"}}</span>
+        </div>   
+        <div class="credit__card card__back">
+          <div class="card__line">
+            <span class="card__code card__code--">{{cardForm.get("cvc")?.value || "CVC"}}</span>
+          </div>          
+          <div class="card__cvc"></div>
+        </div>     
+      </div>
+      <!-- TARJETA MASTERCARD -->
+      <div class="credit__card__mastercard credit__card__mastercard__front">
+        <!-- PARTE DELANTERA -->
+        <div class="card__front">
+          <div class="card__chip"></div>
+          <div class="credit__card__mastercard__logo"></div>
+          <span class="card__hide">{{cardForm.get("number")?.value || "***** ***** **** ****"}}</span>
+          <span class="card__name">{{cardForm.get("name")?.value || "Nombre"}}</span>
+          <span class="card__date">{{cardForm.get("date")?.value || "MM/YY"}}</span>
+
         </div>
+        <!-- PARTE TRASERA DE LA TARJETA MASTERCARD -->
+        <div class="credit__card__mastercard card__back">
+          <div class="card__line">
+            <span class="card__code">{{cardForm.get("cvc")?.value || "CVC"}}</span>
+          </div>
+          <div class="credit__card__mastercard__logo credit__card__mastercard__logo--"></div>
+          <div class="card__cvc"></div>
+        </div>
+      </div>
+      <!-- TARJETA VISA -->
+      <div class="credit__card__mastercard credit__card__mastercard__front">
+        <!-- Parte frontal -->
         <div class="credit__card__visa">
           <div class="card__chip"></div>
           <div class="credit__card__visa__logo"></div>
-          <span class="card__hide">
-              •••• •••• •••• ••••
-          </span>
-          <span class="card__name">Name</span>
+          <span class="card__hide"> {{cardForm.get("number")?.value || "***** ***** **** ****"}}</span>
+          <span class="card__name">{{cardForm.get("name")?.value || "Nombre"}}</span>
+          <span class="card__date">{{cardForm.get("date")?.value || "MM/YY"}}</span>
         </div>
-        <div class="credit__card__mastercard credit__card__mastercard__front">
-          <!-- PARTE DELANTERA -->
-          <div class="card__front">
-            <div class="card__chip"></div>
-            <div class="credit__card__mastercard__logo"></div>
-            <span class="card__hide">{{
-              cardForm.get("number")?.value || "***** ***** **** ****"
-            }}</span>
-            <span class="card__name">{{
-              cardForm.get("name")?.value || "Nombre"
-            }}</span>
+        <!-- Parte trasera -->
+        <div class="credit__card__visa card__back__visa">
+          <div class="card__line">
+            <span class="card__code card__code--">{{cardForm.get("cvc")?.value || "CVC"}}</span>
           </div>
-          <!-- PARTE TRASERA DE LA TARJETA MASTERCARD -->
-          <div class="credit__card__mastercard card__back">
-            <div class="card__line">
-              <span class="card__code">{{
-                cardForm.get("cvc")?.value || "CVC"
-              }}</span>
-            </div>
-            <div
-              class="credit__card__mastercard__logo credit__card__mastercard__logo--"
-            ></div>
-            <div class="card__cvc"></div>
-          </div>
-        </div>
-        <button>Enviar</button>
-      </section>
-    </form>
-  </div>
-  
+          <div class="credit__card__visa__logo credit__card__visa__logo--"></div>
+          <div class="card__cvc"></div>
+        </div>     
+      </div>
+      <button>Enviar</button>
+    </section>
+  </form>
+</div>
