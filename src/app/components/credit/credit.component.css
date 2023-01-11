@@ -144,20 +144,17 @@ input {
   display: none;
 }
 
-.credit__card__mastercard:hover > .card__front {
+/* .credit__card__mastercard:hover > .card__front {
   display: none;
-}
-.credit__card__mastercard {
-  transition: 0.5s ease all;
 }
 
 .credit__card__mastercard:hover {
   transform: rotateY(180deg);
-}
+} */
 
-.credit__card__mastercard:hover > .card__back {
+/* .credit__card__mastercard:hover > .card__back {
   display: flex;
-}
+} */
 
 .card__hide {
   font-size: 12px;
@@ -180,13 +177,13 @@ input {
   background: linear-gradient(25deg, #8b8b8c, #444749);
 }
 
-.credit__card__mastercard:hover > .credit__card__visa {
+/* .credit__card__mastercard:hover > .credit__card__visa {
   display: none;
 }
 
 .credit__card__mastercard:hover > .card__back__visa {
   display: flex;
-}
+} */
 
 .card__code-- {
   color: #555;
@@ -198,17 +195,75 @@ input {
   transform: rotateY(180deg);
 }
 
-.credit__card__mastercard:hover > .credit__card {
+/* .credit__card__mastercard:hover > .credit__card {
   display: none;
 }
 
 .credit__card__mastercard:hover > .card__back {
   display: flex;
-}
+} */
 
 .card__date {
   position: absolute;
   right: 10%;
   bottom: 15%;
   text-transform: uppercase;
+}
+
+.credit__card--disable {
+  display: none;
+}
+
+.card__back--disable {
+  display: none;
+}
+.card__back--active {
+  display: flex;
+}
+.credit__card--active {
+  display: flex;
+}
+
+.visa__disable {
+  display: none;
+}
+.visa__active {
+  display:flex;
+}
+
+.mastercard__disable {
+  display: none;
+}
+.mastercard__active {
+  display:flex;
+}
+
+.defaut__disable {
+  display: none;
+}
+.default__active {
+  display:flex;
+}
+
+
+
+
+/* .credit__card__mastercard:hover {
+  transform: rotateY(180deg);
+}
+
+.credit__card__mastercard:hover > .card__front {
+  display: none;
+} */
+.credit__card__mastercard {
+  transition: 0.5s ease all;
+}
+
+
+/* .credit__card__mastercard:hover > .card__back {
+  display: flex;
+} */
+
+.credit__card__animate {
+  transform: rotateY(180deg);
 }
