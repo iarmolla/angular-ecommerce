@@ -16,7 +16,7 @@ export class CreditComponent implements OnInit {
       name: new FormControl('', [ Validators.pattern('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'),Validators.required, ]),
       dni: new FormControl('', [  Validators.pattern('[0-9]{7,9}'), Validators.required,Validators.maxLength(8),Validators.minLength(8),]),
       cvc: new FormControl('', [ Validators.pattern('^[0-9]+$'),Validators.required,Validators.minLength(3),Validators.maxLength(4),]),
-      date: new FormControl('01/20', [Validators.pattern('([0-9]{2})/([0-9]{2})'),Validators.required,]),
+      date: new FormControl('', [Validators.pattern('([0-9]{2})/([0-9]{2})'),Validators.required,]),
     });
   }
   get cardHolder() {
